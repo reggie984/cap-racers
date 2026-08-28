@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cap Racers — 3D Printed Keycaps</title>
+<style>
+:root{--bg:#0d1020;--card:#171b31;--text:#f7f8ff;--muted:#aeb5d1;--accent:#7c5cff;--accent2:#27d3a2;--danger:#ff667a}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(135deg,#0d1020,#17102b);color:var(--text)}
+header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2b3050;position:sticky;top:0;background:#0d1020ee;backdrop-filter:blur(10px);z-index:2}
+.logo{font-size:25px;font-weight:900}.logo span{color:var(--accent2)}
+nav button,.btn{border:0;border-radius:12px;padding:11px 15px;background:var(--accent);color:white;font-weight:800;cursor:pointer}
+.container{width:min(1100px,92%);margin:0 auto}.hero{padding:70px 0 35px}.hero h1{font-size:clamp(42px,7vw,78px);margin:0 0 14px;line-height:.95}.hero p{color:var(--muted);font-size:18px;max-width:650px}
+.badge{display:inline-block;background:#242947;color:#cfd5ff;border:1px solid #3a416c;padding:7px 11px;border-radius:999px;font-size:13px;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;padding-bottom:60px}
+.card{background:var(--card);border:1px solid #2b3151;border-radius:20px;overflow:hidden;box-shadow:0 12px 35px #0003}
+.art{height:190px;display:grid;place-items:center;background:radial-gradient(circle,#292f55,#14172a);font-size:80px}
+.cardbody{padding:18px}.price{font-size:23px;font-weight:900}.muted{color:var(--muted)}
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:15px}
+section h2{font-size:30px}.panel{background:#12162a;border:1px solid #30375b;border-radius:20px;padding:22px;margin:25px 0 60px}
+input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #3a4164;background:#0b0f1e;color:white;margin:6px 0 12px}
+label{font-size:13px;color:#c9cee3;font-weight:700}.admin{display:none}.login{max-width:420px;margin:80px auto}.product-row{display:grid;grid-template-columns:1fr 120px 90px;gap:10px;align-items:center;border-top:1px solid #303653;padding:12px 0}
+.danger{background:var(--danger)}.secondary{background:#303653}.small{padding:8px 10px;font-size:13px}
+footer{padding:30px 6%;border-top:1px solid #2b3050;color:var(--muted);text-align:center}
+.notice{padding:12px 14px;border-radius:12px;background:#202746;color:#dbe0ff;margin:10px 0}
+@media(max-width:650px){.product-row{grid-template-columns:1fr}.hero{padding-top:45px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">CAP <span>RACERS</span></div>
+  <nav><button onclick="showStore()">Shop</button> <button class="secondary" onclick="showLogin()">Admin</button></nav>
+</header>
+
+<main class="container">
+  <div id="store">
+    <div class="hero">
+      <span class="badge">3D PRINTED • MADE TO ORDER</span>
+      <h1>Make your keyboard<br>race ahead.</h1>
+      <p>Original, chunky keycap designs printed to order. Pick a design, choose a colour, and make your setup yours.</p>
+    </div>
+    <h2>Keycaps</h2>
+    <div id="products" class="grid"></div>
+    <div class="panel">
+      <h2>Custom keycap</h2>
+      <p class="muted">Have your own idea? In the full version, customers can upload a reference image and request a quote.</p>
+      <button class="btn" onclick="alert('Custom orders will be connected in the full online version.')">Request a custom design</button>
+    </div>
+  </div>
+
+  <div id="login" class="panel login" style="display:none">
+    <h2>Owner / Admin Login</h2>
+    <p class="muted">Prototype only — replace these credentials before putting the site online.</p>
+    <label>Username</label><input id="username" autocomplete="username">
+    <label>Password</label><input id="password" type="password" autocomplete="current-password">
+    <button class="btn" onclick="login()">Sign in</button>
+    <div id="loginMsg"></div>
+  </div>
+
+  <div id="admin" class="admin">
+    <div class="hero">
+      <span class="badge">ADMIN DASHBOARD</span>
+      <h1>Manage Cap Racers.</h1>
+      <p>Add designs, edit prices, and remove products. Changes are saved in this browser for this prototype.</p>
+    </div>
+    <div class="panel">
+      <h2>Products</h2>
+      <div id="adminProducts"></div>
+    </div>
+    <div class="panel">
+      <h2>Add a keycap</h2>
+      <label>Name</label><input id="newName" placeholder="e.g. Space Dragon">
+      <label>Price (£)</label><input id="newPrice" type="number" step="0.01" placeholder="4.99">
+      <label>Emoji / temporary picture</label><input id="newEmoji" placeholder="🐉">
+      <label>Description</label><textarea id="newDesc" placeholder="Short product description"></textarea>
+      <button class="btn" onclick="addProduct()">Add product</button>
+      <div id="addMsg"></div>
+    </div>
+    <button class="btn danger" onclick="logout()">Log out</button>
+  </div>
+</main>
+
+<footer>© 2026 Cap Racers • Prototype shop</footer>
+
+<script>
+const DEMO_USERS = {
+  owner: {username:"Reggie", password:"1572"},
+  admin: {username:"FREDO", password:"4398"}
+};
+
+const defaultProducts = [
+ {name:"Mini Monster",price:3.49,emoji:"👾",desc:"A chunky original monster keycap with tiny horns."},
+ {name:"Puffy Cloud",price:2.99,emoji:"☁️",desc:"A cute rounded cloud for a softer keyboard look."},
+ {name:"Mushroom Buddy",price:3.49,emoji:"🍄",desc:"A cheerful little mushroom-inspired keycap."},
+ {name:"Ghost Pop",price:3.49,emoji:"👻",desc:"A tiny ghost with a playful silhouette."},
+ {name:"Pixel Heart",price:2.99,emoji:"❤️",desc:"A chunky pixel-style heart."},
+ {name:"Dragon Egg",price:4.49,emoji:"🐉",desc:"A fantasy-inspired dragon keycap concept."},
+ {name:"Gamepad",price:4.49,emoji:"🎮",desc:"A compact gaming-inspired keycap."},
+ {name:"Moon & Star",price:3.99,emoji:"🌙",desc:"A simple night-sky themed keycap."}
+];
+
+function getProducts(){
+  const saved=localStorage.getItem("capRacersProducts");
+  if(!saved){localStorage.setItem("capRacersProducts",JSON.stringify(defaultProducts));return [...defaultProducts]}
+  return JSON.parse(saved);
+}
+function saveProducts(p){localStorage.setItem("capRacersProducts",JSON.stringify(p));renderStore();renderAdmin();}
+function renderStore(){
+  const p=getProducts();
+  document.getElementById("products").innerHTML=p.map((x,i)=>`
+  <article class="card"><div class="art">${x.emoji||"⌨️"}</div><div class="cardbody">
+  <h3>${esc(x.name)}</h3><p class="muted">${esc(x.desc||"")}</p>
+  <div class="row"><span class="price">£${Number(x.price).toFixed(2)}</span><button class="btn small" onclick="order('${esc(x.name)}')">Order</button></div>
+  </div></article>`).join("");
+}
+function renderAdmin(){
+  const el=document.getElementById("adminProducts"); if(!el)return;
+  el.innerHTML=getProducts().map((x,i)=>`
+  <div class="product-row">
+    <div><b>${esc(x.emoji||"⌨️")} ${esc(x.name)}</b><div class="muted">${esc(x.desc||"")}</div></div>
+    <input type="number" step="0.01" value="${Number(x.price).toFixed(2)}" onchange="updatePrice(${i},this.value)">
+    <button class="btn danger small" onclick="deleteProduct(${i})">Delete</button>
+  </div>`).join("");
+}
+function updatePrice(i,v){const p=getProducts();p[i].price=Number(v);saveProducts(p)}
+function deleteProduct(i){if(confirm("Delete this product?")){const p=getProducts();p.splice(i,1);saveProducts(p)}}
+function addProduct(){
+  const name=document.getElementById("newName").value.trim(), price=Number(document.getElementById("newPrice").value), emoji=document.getElementById("newEmoji").value.trim()||"⌨️", desc=document.getElementById("newDesc").value.trim();
+  if(!name||!price){document.getElementById("addMsg").innerHTML='<div class="notice">Please enter a name and price.</div>';return}
+  const p=getProducts();p.push({name,price,emoji,desc});saveProducts(p);
+  ["newName","newPrice","newEmoji","newDesc"].forEach(id=>document.getElementById(id).value="");
+  document.getElementById("addMsg").innerHTML='<div class="notice">Product added.</div>';
+}
+function login(){
+  const u=document.getElementById("username").value, pw=document.getElementById("password").value;
+  const ok=Object.values(DEMO_USERS).some(a=>a.username.toLowerCase()===u.toLowerCase()&&a.password===pw);
+  if(ok){sessionStorage.setItem("capAdmin","1");showAdmin()}else document.getElementById("loginMsg").innerHTML='<div class="notice">Login failed.</div>';
+}
+function logout(){sessionStorage.removeItem("capAdmin");showStore()}
+function showStore(){document.getElementById("store").style.display="block";document.getElementById("login").style.display="none";document.getElementById("admin").style.display="none"}
+function showLogin(){document.getElementById("store").style.display="none";document.getElementById("login").style.display="block";document.getElementById("admin").style.display="none"}
+function showAdmin(){document.getElementById("store").style.display="none";document.getElementById("login").style.display="none";document.getElementById("admin").style.display="block";renderAdmin()}
+function showInitial(){if(sessionStorage.getItem("capAdmin"))showAdmin();else showStore()}
+function order(name){alert("Demo order: "+name+"\\n\\nThe live version can connect this button to a basket, checkout and order management.")}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
+renderStore();showInitial();
+</script>
+</body>
+</html>
