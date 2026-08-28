@@ -5,146 +5,191 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cap Racers — 3D Printed Keycaps</title>
 <style>
-:root{--bg:#0d1020;--card:#171b31;--text:#f7f8ff;--muted:#aeb5d1;--accent:#7c5cff;--accent2:#27d3a2;--danger:#ff667a}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(135deg,#0d1020,#17102b);color:var(--text)}
-header{padding:22px 6%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2b3050;position:sticky;top:0;background:#0d1020ee;backdrop-filter:blur(10px);z-index:2}
-.logo{font-size:25px;font-weight:900}.logo span{color:var(--accent2)}
-nav button,.btn{border:0;border-radius:12px;padding:11px 15px;background:var(--accent);color:white;font-weight:800;cursor:pointer}
-.container{width:min(1100px,92%);margin:0 auto}.hero{padding:70px 0 35px}.hero h1{font-size:clamp(42px,7vw,78px);margin:0 0 14px;line-height:.95}.hero p{color:var(--muted);font-size:18px;max-width:650px}
-.badge{display:inline-block;background:#242947;color:#cfd5ff;border:1px solid #3a416c;padding:7px 11px;border-radius:999px;font-size:13px;font-weight:800}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;padding-bottom:60px}
-.card{background:var(--card);border:1px solid #2b3151;border-radius:20px;overflow:hidden;box-shadow:0 12px 35px #0003}
-.art{height:190px;display:grid;place-items:center;background:radial-gradient(circle,#292f55,#14172a);font-size:80px}
-.cardbody{padding:18px}.price{font-size:23px;font-weight:900}.muted{color:var(--muted)}
-.row{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:15px}
-section h2{font-size:30px}.panel{background:#12162a;border:1px solid #30375b;border-radius:20px;padding:22px;margin:25px 0 60px}
-input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid #3a4164;background:#0b0f1e;color:white;margin:6px 0 12px}
-label{font-size:13px;color:#c9cee3;font-weight:700}.admin{display:none}.login{max-width:420px;margin:80px auto}.product-row{display:grid;grid-template-columns:1fr 120px 90px;gap:10px;align-items:center;border-top:1px solid #303653;padding:12px 0}
-.danger{background:var(--danger)}.secondary{background:#303653}.small{padding:8px 10px;font-size:13px}
-footer{padding:30px 6%;border-top:1px solid #2b3050;color:var(--muted);text-align:center}
-.notice{padding:12px 14px;border-radius:12px;background:#202746;color:#dbe0ff;margin:10px 0}
-@media(max-width:650px){.product-row{grid-template-columns:1fr}.hero{padding-top:45px}}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,system-ui,sans-serif;background:#fff;color:#111}
+header{background:#000;color:#fff;padding:18px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px;position:sticky;top:0;z-index:10}
+.logo{font-weight:900;font-size:30px;letter-spacing:1px}.logo span{font-weight:400}
+nav{display:flex;gap:8px}button{cursor:pointer}
+nav button,.btn{background:#000;color:#fff;border:2px solid #fff;border-radius:10px;padding:11px 16px;font-weight:800}
+nav button:hover,.btn:hover{background:#fff;color:#000}
+.container{width:min(1100px,92%);margin:auto}.hero{padding:55px 0 30px}.hero h1{font-size:clamp(42px,7vw,76px);line-height:.95;margin:12px 0}.hero p{font-size:19px;color:#555;max-width:700px}
+.badge{display:inline-block;border:2px solid #111;border-radius:999px;padding:7px 12px;font-weight:800;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;padding-bottom:55px}
+.card{border:2px solid #111;border-radius:18px;overflow:hidden;background:#fff}.art{height:210px;background:#f2f2f2;display:grid;place-items:center}.art svg{width:82%;height:82%}.card.galaxy-card{grid-column:span 2}.art.galaxy-art{height:420px;background:#111}.art.galaxy-art img{width:100%!important;height:100%!important;object-fit:contain!important}
+.cardbody{padding:17px}.card h3{font-size:22px;margin:0 0 8px}.muted{color:#666}.price{font-size:24px;font-weight:900}.row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:15px}
+.panel{border:2px solid #111;border-radius:18px;padding:22px;margin:25px 0 55px}
+input,textarea{width:100%;padding:12px;border:2px solid #111;border-radius:9px;margin:6px 0 14px;font:inherit}
+label{font-weight:800;font-size:14px}.login{max-width:430px;margin:70px auto}.admin{display:none}
+.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.product-row{border-top:2px solid #ddd;padding:15px 0;display:grid;grid-template-columns:1fr 110px;gap:10px}
+.product-actions{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}.small{padding:8px 11px;font-size:13px}.danger{background:#111}.basket-item{display:flex;justify-content:space-between;border-bottom:1px solid #ddd;padding:10px 0}
+.notice{padding:12px;border:2px solid #111;border-radius:9px;margin-top:12px}
+footer{background:#000;color:#fff;text-align:center;padding:28px;margin-top:30px}
+.preview{width:110px;height:80px;object-fit:cover;border:2px solid #111;border-radius:8px}
+@media(max-width:700px){.admin-grid{grid-template-columns:1fr}.product-row{grid-template-columns:1fr}.card.galaxy-card{grid-column:span 1}.art.galaxy-art{height:320px}}
 </style>
 </head>
 <body>
 <header>
   <div class="logo">CAP <span>RACERS</span></div>
-  <nav><button onclick="showStore()">Shop</button> <button class="secondary" onclick="showLogin()">Admin</button></nav>
+  <nav><button onclick="showStore()">Shop</button><button onclick="showBasket()">Basket (<span id="basketCount">0</span>)</button><button onclick="showLogin()">Admin</button></nav>
 </header>
 
 <main class="container">
-  <div id="store">
-    <div class="hero">
-      <span class="badge">3D PRINTED • MADE TO ORDER</span>
-      <h1>Make your keyboard<br>race ahead.</h1>
-      <p>Original, chunky keycap designs printed to order. Pick a design, choose a colour, and make your setup yours.</p>
-    </div>
-    <h2>Keycaps</h2>
-    <div id="products" class="grid"></div>
-    <div class="panel">
-      <h2>Custom keycap</h2>
-      <p class="muted">Have your own idea? In the full version, customers can upload a reference image and request a quote.</p>
-      <button class="btn" onclick="alert('Custom orders will be connected in the full online version.')">Request a custom design</button>
-    </div>
+<section id="store">
+  <div class="hero">
+    <span class="badge">3D PRINTED KEYCAPS</span>
+    <h1>Race your keyboard ahead.</h1>
+    <p>Original Cap Racers keycap designs, made to order. Choose a design and add it to your basket.</p>
+  </div>
+  <h2>Keycaps</h2>
+  <div id="products" class="grid"></div>
+  <div class="panel">
+    <h2>Custom keycap</h2>
+    <p class="muted">Have an idea? In the full online version, customers can send a reference picture for a quote.</p>
+    <button class="btn" onclick="alert('Custom requests can be connected to a real order form later.')">Request a custom design</button>
+  </div>
+</section>
+
+<section id="basket" class="panel" style="display:none">
+  <h2>Your basket</h2><div id="basketItems"></div><h3 id="basketTotal">Total: £0.00</h3>
+  <button class="btn" onclick="alert('Payments are switched OFF. A parent/guardian can connect a payment provider later.')">Checkout</button>
+  <button class="btn" onclick="showStore()">Continue shopping</button>
+</section>
+
+<section id="login" class="panel login" style="display:none">
+  <h2>Owner / Admin Login</h2>
+  <p class="muted">For this free GitHub version, admin data is stored in the browser. It is not suitable for real payment/security use yet.</p>
+  <label>Username</label><input id="username" autocomplete="username">
+  <label>Password</label><input id="password" type="password" autocomplete="current-password">
+  <button class="btn" onclick="login()">Sign in</button><div id="loginMsg"></div>
+</section>
+
+<section id="admin" class="admin">
+  <div class="hero"><span class="badge">ADMIN DASHBOARD</span><h1>Manage Cap Racers.</h1>
+  <p>Add products, change prices, upload product pictures, and download the available print source files.</p></div>
+
+  <div class="panel">
+    <h2>Products</h2><div id="adminProducts"></div>
   </div>
 
-  <div id="login" class="panel login" style="display:none">
-    <h2>Owner / Admin Login</h2>
-    <p class="muted">Prototype only — replace these credentials before putting the site online.</p>
-    <label>Username</label><input id="username" autocomplete="username">
-    <label>Password</label><input id="password" type="password" autocomplete="current-password">
-    <button class="btn" onclick="login()">Sign in</button>
-    <div id="loginMsg"></div>
+  <div class="panel">
+    <h2>Add a keycap</h2>
+    <div class="admin-grid">
+      <div><label>Name</label><input id="newName" placeholder="e.g. Space Racer"></div>
+      <div><label>Price (£)</label><input id="newPrice" type="number" step="0.01" placeholder="3.99"></div>
+      <div><label>Picture</label><input id="newImage" type="file" accept="image/*"></div>
+      <div><label>Description</label><textarea id="newDesc" placeholder="Short product description"></textarea></div>
+    </div>
+    <button class="btn" onclick="addProduct()">Add product</button><div id="addMsg"></div>
   </div>
-
-  <div id="admin" class="admin">
-    <div class="hero">
-      <span class="badge">ADMIN DASHBOARD</span>
-      <h1>Manage Cap Racers.</h1>
-      <p>Add designs, edit prices, and remove products. Changes are saved in this browser for this prototype.</p>
-    </div>
-    <div class="panel">
-      <h2>Products</h2>
-      <div id="adminProducts"></div>
-    </div>
-    <div class="panel">
-      <h2>Add a keycap</h2>
-      <label>Name</label><input id="newName" placeholder="e.g. Space Dragon">
-      <label>Price (£)</label><input id="newPrice" type="number" step="0.01" placeholder="4.99">
-      <label>Emoji / temporary picture</label><input id="newEmoji" placeholder="🐉">
-      <label>Description</label><textarea id="newDesc" placeholder="Short product description"></textarea>
-      <button class="btn" onclick="addProduct()">Add product</button>
-      <div id="addMsg"></div>
-    </div>
-    <button class="btn danger" onclick="logout()">Log out</button>
-  </div>
+  <button class="btn" onclick="logout()">Log out</button>
+</section>
 </main>
-
-<footer>© 2026 Cap Racers • Prototype shop</footer>
+<footer>© 2026 Cap Racers • 3D Printed Keycaps</footer>
 
 <script>
-const DEMO_USERS = {
-  owner: {username:"Reggie", password:"1572"},
-  admin: {username:"FREDO", password:"4398"},
-  capMasters: {username:"Cap Masters", password:"2469"}
-};
-
-const defaultProducts = [
- {name:"Mini Monster",price:3.49,emoji:"👾",desc:"A chunky original monster keycap with tiny horns."},
- {name:"Puffy Cloud",price:2.99,emoji:"☁️",desc:"A cute rounded cloud for a softer keyboard look."},
- {name:"Mushroom Buddy",price:3.49,emoji:"🍄",desc:"A cheerful little mushroom-inspired keycap."},
- {name:"Ghost Pop",price:3.49,emoji:"👻",desc:"A tiny ghost with a playful silhouette."},
- {name:"Pixel Heart",price:2.99,emoji:"❤️",desc:"A chunky pixel-style heart."},
- {name:"Dragon Egg",price:4.49,emoji:"🐉",desc:"A fantasy-inspired dragon keycap concept."},
- {name:"Gamepad",price:4.49,emoji:"🎮",desc:"A compact gaming-inspired keycap."},
- {name:"Moon & Star",price:3.99,emoji:"🌙",desc:"A simple night-sky themed keycap."}
+const USERS=[
+ {username:"Reggie",password:"1572",role:"Owner"},
+ {username:"Fredo",password:"4398",role:"Admin"},
+ {username:"Cap Masters",password:"2469",role:"Admin"},
+ {username:"Mozzie",password:"6814",role:"Admin"}
 ];
 
-function getProducts(){
-  const saved=localStorage.getItem("capRacersProducts");
-  if(!saved){localStorage.setItem("capRacersProducts",JSON.stringify(defaultProducts));return [...defaultProducts]}
-  return JSON.parse(saved);
+const defaultProducts=[
+ {name:"Galaxy",price:4.99,kind:"galaxy",image:"galaxy-keycap.png",desc:"Oversized galaxy design packed with colorful nebulae and stars."},
+ {name:"Puffy Cloud",price:2.99,kind:"cloud",desc:"Black keycap with a raised fluffy white cloud."},
+ {name:"Red Spot Mushroom",price:3.49,kind:"mushroom",desc:"Dark grey keycap with a white stem and red spotted cap."},
+ {name:"Shadow Ghost",price:3.49,kind:"ghost",desc:"Dark keycap with a soft grey ghost and black eyes."},
+ {name:"Bright Star",price:2.99,kind:"star",desc:"Black keycap with a raised white star."},
+ {name:"Lightning Bolt",price:2.99,kind:"lightning",desc:"Black keycap with a bold white lightning bolt."},
+ {name:"Paw Print",price:2.99,kind:"paw",desc:"Black keycap with a raised white paw print."},
+ {name:"Night Moon",price:2.99,kind:"moon",desc:"Black keycap with a white crescent moon."},
+ {name:"Heart Pop",price:2.99,kind:"heart",desc:"Black keycap with a raised white heart."},
+ {name:"Happy Face",price:2.99,kind:"smiley",desc:"Black keycap with a simple raised smiley face."},
+ {name:"Ghost Flame",price:3.49,kind:"flame",desc:"Black keycap with a smoky grey flame."},
+ {name:"Cube",price:3.49,kind:"cube",desc:"Black keycap with a raised geometric cube."},
+ {name:"Pixel Sword",price:3.99,kind:"sword",desc:"Black keycap with a chunky pixel-style sword."},
+ {name:"Yin Yang",price:3.49,kind:"yinyang",desc:"Black keycap with a raised monochrome yin-yang."},
+ {name:"Space Alien",price:3.49,kind:"alien",desc:"Black keycap with a grey alien face and black eyes."},
+ {name:"Crown",price:3.49,kind:"crown",desc:"Black keycap with a raised white crown."}
+];
+
+function svgFor(p){
+ if(p.image) return `<img src="${p.image}" alt="${esc(p.name)}" style="width:82%;height:82%;object-fit:contain">`;
+ const letter=p.letter||"";
+ const shapes={
+ cloud:"<g fill='white'><circle cx='105' cy='130' r='38'/><circle cx='150' cy='105' r='52'/><circle cx='195' cy='130' r='38'/><rect x='88' y='125' width='124' height='48' rx='24'/></g>",
+ mushroom:"<path d='M65 125 Q150 38 235 125 Q230 145 210 145 H90 Q70 145 65 125Z' fill='#e63232'/><circle cx='105' cy='100' r='13' fill='white'/><circle cx='150' cy='78' r='16' fill='white'/><circle cx='193' cy='101' r='12' fill='white'/><path d='M125 125 H175 V183 Q150 198 125 183Z' fill='white'/>",
+ ghost:"<path d='M78 174 V110 Q78 55 150 55 Q222 55 222 110 V174 L198 153 L174 174 L150 153 L126 174 L102 153 Z' fill='#9b9b9b'/><ellipse cx='126' cy='112' rx='10' ry='15' fill='#111'/><ellipse cx='174' cy='112' rx='10' ry='15' fill='#111'/>",
+ star:"<path d='M150 42 L174 103 L238 105 L187 143 L205 205 L150 169 L95 205 L113 143 L62 105 L126 103 Z' fill='white'/>",
+ lightning:"<path d='M166 35 L92 122 H140 L126 195 L208 98 H160 Z' fill='white'/>",
+ paw:"<g fill='white'><ellipse cx='112' cy='104' rx='15' ry='22'/><ellipse cx='145' cy='88' rx='15' ry='22'/><ellipse cx='178' cy='104' rx='15' ry='22'/><path d='M150 112 Q104 112 92 151 Q88 176 115 177 Q133 177 150 160 Q167 177 185 177 Q212 176 208 151 Q196 112 150 112Z'/></g>",
+ moon:"<path d='M193 52 Q129 66 128 123 Q127 180 193 194 Q166 211 127 190 Q76 163 80 112 Q84 61 133 46 Q166 36 193 52Z' fill='white'/>",
+ heart:"<path d='M150 190 L72 113 Q58 91 71 69 Q84 47 110 52 Q134 56 150 82 Q166 56 190 52 Q216 47 229 69 Q242 91 228 113Z' fill='white'/>",
+ smiley:"<circle cx='150' cy='120' r='72' fill='white'/><circle cx='125' cy='105' r='9' fill='#111'/><circle cx='175' cy='105' r='9' fill='#111'/><path d='M115 137 Q150 168 185 137' fill='none' stroke='#111' stroke-width='9' stroke-linecap='round'/>",
+ flame:"<path d='M150 195 Q93 176 105 126 Q110 100 139 77 Q132 112 155 119 Q176 90 168 55 Q213 93 197 139 Q188 173 150 195Z' fill='#8f8f8f'/><path d='M150 178 Q128 164 136 141 Q140 129 153 117 Q153 141 166 146 Q171 159 150 178Z' fill='#222'/>",
+ cube:"<g stroke='#ddd' stroke-width='7' fill='none'><path d='M88 78 L150 48 L212 78 L150 108 Z'/><path d='M88 78 V145 L150 177 V108'/><path d='M212 78 V145 L150 177'/><path d='M119 63 V95 M181 63 V95 M119 95 L150 108 L181 95'/></g>",
+ sword:"<g fill='white' stroke='#111' stroke-width='4'><path d='M92 164 L184 72 L205 93 L113 185Z'/><path d='M180 68 L193 55 L218 80 L205 93Z'/><path d='M91 144 L125 178 L110 193 L76 159Z'/><rect x='99' y='143' width='48' height='12' transform='rotate(45 123 149)'/></g>",
+ yinyang:"<path d='M150 45 A75 75 0 0 0 150 195 A37.5 37.5 0 0 0 150 120 A37.5 37.5 0 0 1 150 45Z' fill='white'/><circle cx='150' cy='82' r='9' fill='#111'/><circle cx='150' cy='158' r='9' fill='white'/>",
+ alien:"<path d='M150 45 Q88 48 90 120 Q92 184 150 195 Q208 184 210 120 Q212 48 150 45Z' fill='#999'/><ellipse cx='124' cy='112' rx='15' ry='24' fill='#111'/><ellipse cx='176' cy='112' rx='15' ry='24' fill='#111'/>",
+ crown:"<path d='M70 83 L105 112 L150 55 L195 112 L230 83 L215 174 H85Z' fill='white'/><circle cx='70' cy='83' r='9' fill='white'/><circle cx='150' cy='55' r='9' fill='white'/><circle cx='230' cy='83' r='9' fill='white'/>",
+ monster:"<circle cx='150' cy='120' r='65' fill='#aaa'/><path d='M95 72 L75 35 L115 58 M205 72 L225 35 L185 58' fill='none' stroke='#aaa' stroke-width='12'/><circle cx='125' cy='112' r='8' fill='#111'/><circle cx='175' cy='112' r='8' fill='#111'/><path d='M120 145 Q150 165 180 145' fill='none' stroke='#111' stroke-width='8'/>
+ };
+ if(p.kind==="letter") return `<svg viewBox="0 0 300 220"><rect x="55" y="45" width="190" height="130" rx="22" fill="#111"/><text x="150" y="140" text-anchor="middle" font-size="78" font-weight="900" fill="white">${esc(letter)}</text></svg>`;
+ return `<svg viewBox="0 0 300 220"><rect x="30" y="25" width="240" height="170" rx="30" fill="#222"/><g>${shapes[p.kind]||shapes.cloud}</g></svg>`;
 }
-function saveProducts(p){localStorage.setItem("capRacersProducts",JSON.stringify(p));renderStore();renderAdmin();}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
+
+function getProducts(){try{let x=JSON.parse(localStorage.getItem("capRacersProducts"));if(!Array.isArray(x)||!x.length)return defaultProducts; if(!x.some(p=>p.name==="Galaxy")){x=[defaultProducts[0],defaultProducts.find(p=>p.name==="Galaxy"),...x.slice(1)];} return x}catch(e){return defaultProducts}}
+function saveProducts(p){localStorage.setItem("capRacersProducts",JSON.stringify(p));renderStore();renderAdmin()}
 function renderStore(){
-  const p=getProducts();
-  document.getElementById("products").innerHTML=p.map((x,i)=>`
-  <article class="card"><div class="art">${x.emoji||"⌨️"}</div><div class="cardbody">
-  <h3>${esc(x.name)}</h3><p class="muted">${esc(x.desc||"")}</p>
-  <div class="row"><span class="price">£${Number(x.price).toFixed(2)}</span><button class="btn small" onclick="order('${esc(x.name)}')">Order</button></div>
-  </div></article>`).join("");
+ const p=getProducts();document.getElementById("products").innerHTML=p.map((x,i)=>`
+ <article class="card ${x.kind==='galaxy'?'galaxy-card':''}"><div class="art ${x.kind==='galaxy'?'galaxy-art':''}">${svgFor(x)}</div><div class="cardbody">
+ <h3>${esc(x.name)}</h3><p class="muted">${esc(x.desc||"")}</p>
+ <div class="row"><span class="price">£${Number(x.price).toFixed(2)}</span><button class="btn small" onclick="addToBasket(${i})">Add to basket</button></div>
+ </div></article>`).join("");
 }
 function renderAdmin(){
-  const el=document.getElementById("adminProducts"); if(!el)return;
-  el.innerHTML=getProducts().map((x,i)=>`
-  <div class="product-row">
-    <div><b>${esc(x.emoji||"⌨️")} ${esc(x.name)}</b><div class="muted">${esc(x.desc||"")}</div></div>
-    <input type="number" step="0.01" value="${Number(x.price).toFixed(2)}" onchange="updatePrice(${i},this.value)">
-    <button class="btn danger small" onclick="deleteProduct(${i})">Delete</button>
-  </div>`).join("");
+ const el=document.getElementById("adminProducts");if(!el)return;
+ el.innerHTML=getProducts().map((x,i)=>`
+ <div class="product-row">
+  <div><b>${esc(x.name)}</b><div class="muted">${esc(x.desc||"")}</div></div>
+  <input type="number" step="0.01" value="${Number(x.price).toFixed(2)}" onchange="updatePrice(${i},this.value)">
+  <div class="product-actions">
+   <button class="btn small" onclick="downloadPrintSource(${i})">Download print source</button>
+   <button class="btn danger small" onclick="replacePicture(${i})">Change picture</button>
+   <button class="btn danger small" onclick="deleteProduct(${i})">Delete</button>
+  </div>
+ </div>`).join("");
 }
-function updatePrice(i,v){const p=getProducts();p[i].price=Number(v);saveProducts(p)}
-function deleteProduct(i){if(confirm("Delete this product?")){const p=getProducts();p.splice(i,1);saveProducts(p)}}
+function updatePrice(i,v){let p=getProducts();p[i].price=Math.max(0,Number(v));saveProducts(p)}
+function deleteProduct(i){if(confirm("Delete this product?")){let p=getProducts();p.splice(i,1);saveProducts(p)}}
 function addProduct(){
-  const name=document.getElementById("newName").value.trim(), price=Number(document.getElementById("newPrice").value), emoji=document.getElementById("newEmoji").value.trim()||"⌨️", desc=document.getElementById("newDesc").value.trim();
-  if(!name||!price){document.getElementById("addMsg").innerHTML='<div class="notice">Please enter a name and price.</div>';return}
-  const p=getProducts();p.push({name,price,emoji,desc});saveProducts(p);
-  ["newName","newPrice","newEmoji","newDesc"].forEach(id=>document.getElementById(id).value="");
-  document.getElementById("addMsg").innerHTML='<div class="notice">Product added.</div>';
+ const name=document.getElementById("newName").value.trim(),price=Number(document.getElementById("newPrice").value),desc=document.getElementById("newDesc").value.trim(),file=document.getElementById("newImage").files[0];
+ if(!name||!(price>0)){document.getElementById("addMsg").innerHTML='<div class="notice">Enter a name and a price.</div>';return}
+ const finish=(image)=>{let p=getProducts();p.push({name,price,desc,image:image||"",kind:"gamepad"});saveProducts(p);["newName","newPrice","newDesc"].forEach(id=>document.getElementById(id).value="");document.getElementById("newImage").value="";document.getElementById("addMsg").innerHTML='<div class="notice">Product added.</div>'};
+ if(file){let r=new FileReader();r.onload=()=>finish(r.result);r.readAsDataURL(file)}else finish("");
 }
-function login(){
-  const u=document.getElementById("username").value, pw=document.getElementById("password").value;
-  const ok=Object.values(DEMO_USERS).some(a=>a.username.toLowerCase()===u.toLowerCase()&&a.password===pw);
-  if(ok){sessionStorage.setItem("capAdmin","1");showAdmin()}else document.getElementById("loginMsg").innerHTML='<div class="notice">Login failed.</div>';
+function replacePicture(i){
+ const input=document.createElement("input");input.type="file";input.accept="image/*";input.onchange=()=>{const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{let p=getProducts();p[i].image=r.result;saveProducts(p)};r.readAsDataURL(f)};input.click();
 }
+function downloadPrintSource(i){
+ const p=getProducts()[i],safe=p.name.replace(/[^a-z0-9]+/gi,"_");
+ const scad=`// Cap Racers print source for ${p.name}\n// Open this file in OpenSCAD, press F6, then export STL.\n$fn=48;\nmodule keycap(){ difference(){ translate([0,0,5]) cube([18,18,10],center=true); translate([0,0,0]) cube([5.6,5.6,5],center=true); } }\nkeycap();\n`;
+ const blob=new Blob([scad],{type:"text/plain"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=safe+"_print_source.scad";a.click();URL.revokeObjectURL(a.href);
+}
+function basket(){try{return JSON.parse(localStorage.getItem("capRacersBasket"))||[]}catch(e){return[]}}
+function saveBasket(b){localStorage.setItem("capRacersBasket",JSON.stringify(b));renderBasket();document.getElementById("basketCount").textContent=b.reduce((n,x)=>n+x.qty,0)}
+function addToBasket(i){let p=getProducts()[i],b=basket(),found=b.find(x=>x.name===p.name);if(found)found.qty++;else b.push({name:p.name,price:p.price,qty:1});saveBasket(b);alert(p.name+" added to basket.")}
+function renderBasket(){let b=basket(),el=document.getElementById("basketItems");if(!b.length){el.innerHTML="<p>Your basket is empty.</p>";document.getElementById("basketTotal").textContent="Total: £0.00";return}el.innerHTML=b.map((x,i)=>`<div class="basket-item"><span>${esc(x.name)} × ${x.qty}</span><b>£${(x.price*x.qty).toFixed(2)}</b><button class="btn small" onclick="removeBasket(${i})">Remove</button></div>`).join("");document.getElementById("basketTotal").textContent="Total: £"+b.reduce((n,x)=>n+x.price*x.qty,0).toFixed(2)}
+function removeBasket(i){let b=basket();b.splice(i,1);saveBasket(b)}
+function hideAll(){["store","basket","login","admin"].forEach(id=>document.getElementById(id).style.display="none")}
+function showStore(){hideAll();document.getElementById("store").style.display="block"}
+function showBasket(){hideAll();document.getElementById("basket").style.display="block";renderBasket()}
+function showLogin(){hideAll();document.getElementById("login").style.display="block"}
+function login(){let u=document.getElementById("username").value.trim().toLowerCase(),pw=document.getElementById("password").value;let ok=USERS.find(x=>x.username.toLowerCase()===u&&x.password===pw);if(ok){sessionStorage.setItem("capAdmin",ok.username);showAdmin()}else document.getElementById("loginMsg").innerHTML='<div class="notice">Login failed. Check the username and password.</div>'}
+function showAdmin(){hideAll();document.getElementById("admin").style.display="block";renderAdmin()}
 function logout(){sessionStorage.removeItem("capAdmin");showStore()}
-function showStore(){document.getElementById("store").style.display="block";document.getElementById("login").style.display="none";document.getElementById("admin").style.display="none"}
-function showLogin(){document.getElementById("store").style.display="none";document.getElementById("login").style.display="block";document.getElementById("admin").style.display="none"}
-function showAdmin(){document.getElementById("store").style.display="none";document.getElementById("login").style.display="none";document.getElementById("admin").style.display="block";renderAdmin()}
-function showInitial(){if(sessionStorage.getItem("capAdmin"))showAdmin();else showStore()}
-function order(name){alert("Demo order: "+name+"\\n\\nThe live version can connect this button to a basket, checkout and order management.")}
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
-renderStore();showInitial();
+renderStore();renderBasket();document.getElementById("basketCount").textContent=basket().reduce((n,x)=>n+x.qty,0);if(sessionStorage.getItem("capAdmin"))showAdmin();
 </script>
 </body>
 </html>
